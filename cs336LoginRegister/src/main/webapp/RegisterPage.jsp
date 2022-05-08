@@ -1,4 +1,4 @@
-<!DOCTYPE html>   
+<!DOCTYPE html>  
 <%@ include file="index.jsp" %>  
 <hr/>  
 <html>    
@@ -20,7 +20,7 @@
         </label>    
         <input type="Password" name="pass" id="Pass" placeholder="Password">    
         <br><br>    
-        <input type="submit" value="Submit" id = "log">      
+        <button type="submit" value = "user" id = "log" name = userType>Submit</button> 
     </form>     
 </div>    
 </body>    

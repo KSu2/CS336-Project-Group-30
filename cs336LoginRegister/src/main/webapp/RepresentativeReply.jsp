@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" import = "cs336LoginRegister.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*"%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +37,7 @@
 	    Statement st = con.createStatement();
 	    
 	    //String uName = (String)session.getAttribute("user");
-	    ResultSet rs = st.executeQuery("SELECT * from Questions where customerRep IS NULL and reply IS NULL");
+	    ResultSet rs = st.executeQuery("SELECT * from questions where user_id  = NULL and reply = NULL");
 	    if(!rs.next())
 	    {
 	    	out.print("<p>There are no unanswered questions.</p>");
@@ -46,7 +50,7 @@
 		    	String u = rs.getString("username");
 		    	String t = rs.getString("topic");
 		    	String m = rs.getString("question");
-		    	String displayQuestion = "Question ID: " + qid + "<br>Customer Username: " + u + "<br>Question: " + q;
+		    	String displayQuestion = "Question ID: " + qid + "<br>Customer Username: " + u + "<br>Question: " + qid;
 		    	
 		    	out.print("<p>" + displayQuestion + "</p>");
 		    }
@@ -55,6 +59,10 @@
 	    st.close();
 	    rs.close();
     	db.closeConnection(con);
+    }catch (Exception ex) {
+		out.print(ex);
+		out.print("Insert failed :()");
+	}
     %>
-   </body>
+</body>
 </html>

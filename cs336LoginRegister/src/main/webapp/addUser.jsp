@@ -23,17 +23,24 @@
 		String email = request.getParameter("email");
 		String username = request.getParameter("username");
 		String pass = request.getParameter("pass");
+		String user_type = request.getParameter("userType");
 
 		String query = "SELECT * FROM user WHERE username = ?";
 		PreparedStatement ps1 = con.prepareStatement(query);
 		ps1.setString(1,username);
 		ResultSet rs = ps1.executeQuery();
 		if(rs.next()){
-            out.println("<font color=red>");
-            out.println("username is already taken");
-            out.println("</font>");
-            out.println("<a 'href=RegisterPage.jsp'> <input type = 'submit' value = 'go back'/> </a>");
-		}
+			if(user_type.equals("customer_rep")){
+				//update isCustomerRep to true
+			}
+			else{
+				out.println("<font color=red>");
+	            out.println("username is already taken");
+	            out.println("</font>");
+	            out.println("<a 'href=RegisterPage.jsp'> <input type = 'submit' value = 'go back'/> </a>");
+			
+			}
+        }
 	
 		else{
 			//Make an insert statement for the Sells table:

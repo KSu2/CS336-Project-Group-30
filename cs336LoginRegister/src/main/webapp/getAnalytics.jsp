@@ -46,14 +46,18 @@
 		else{
 			
 			String type = request.getParameter("selectSellType");
-			String query = "SELECT MAX(y.num) FROM (SELECT COUNT(*) AS num FROM auction_history group by " + type +") y"; //THIS QUERY WORKS IN MYSQL NOT SURE WHY IT DOESN't WORK HERE
-			query = query + type;
+			String query = "SELECT ?,MAX(y.num) FROM (SELECT ?,COUNT(*) AS num FROM auction_history group by ?) y"; //THIS QUERY WORKS IN MYSQL NOT SURE WHY IT DOESN't WORK HERE
 			PreparedStatement ps = con.prepareStatement(query);
+			ps.setString(1, type);
+			ps.setString(2, type);
+			ps.setString(3, type);	
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
-				out.println("Best selling " + type + " " + rs.getString(1));
+				out.println("Best selling " + type + " " + rs.getString(type));
 			}
 		}
+        stmt.close();
+        con.close();
 
 	}catch (Exception ex) {
 		out.print(ex);

@@ -38,14 +38,17 @@ try {
 		do { 
 			out.print("Item name: " + rs.getString("item_name") + " ");
 			out.print("Starting price: " + rs.getString("initial_price"));
-			out.print("<form>");
+			out.print("<form method = get action = bidItem.jsp>");
 			out.print("<table>");
 			out.print("<tr>");
-			out.print("<td>Bid Price</td><td><input type=text name=item_type></td>");
+			out.print("<td>Bid Price</td><td><input type=text name=bid_price></td>");
+			out.print("<td>Auto Bid Price</td><td><input type=text name=auto_bid_price></td>");
+			out.print("<td>Max Auto Bid Price</td><td><input type=text name=max_auto_bid></td>");
 			out.print("</table>");
-			out.print("<input type=submit value=Bid>");
+			out.print("<button type=submit name=bid value=" + rs.getString("item_id") + ">Bid</button>");
 			out.print("</form>");
 			out.print("<br>");
+
 		}
 		while (rs.next());
 		}
