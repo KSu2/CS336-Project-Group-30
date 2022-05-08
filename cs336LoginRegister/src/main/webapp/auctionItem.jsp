@@ -18,9 +18,9 @@ try {
 	//Create a SQL statement
 	Statement stmt = con.createStatement();
 	
-	// FIgure out what the new item's id should be
-	String getItemCountQuery = "SELECT MAX(item_id) max_id FROM items";
-	PreparedStatement preparedQuery = con.prepareStatement(getItemCountQuery);
+	// Figure out what the new item's id should be
+	String getMaxItemIdQuery = "SELECT MAX(item_id) max_id FROM items";
+	PreparedStatement preparedQuery = con.prepareStatement(getMaxItemIdQuery);
 	
 	ResultSet queryResult = preparedQuery.executeQuery();
 	
@@ -55,17 +55,15 @@ try {
 	
 	
 	if(updateResult == 1) {	
-		out.print("Successfully added '" + itemName + "' auction item list with id '" + itemId + "'");
+		out.println("Successfully added '" + itemName + "' auction item list with id '" + itemId + "'");
 	} else {
-		out.print("Potentially failed to add item to auction list");
+		out.println("Potentially failed to add item to auction list");
 	}
-    stmt.close();
-    con.close();
-	
-	
+   		
 	// Close connections
 	preparedQuery.close();
 	preparedUpdate.close();
+    stmt.close();
 	con.close();
 	
 } catch(Exception ex) {
