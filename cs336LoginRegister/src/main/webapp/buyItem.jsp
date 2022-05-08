@@ -49,7 +49,7 @@ try {
 			out.print("<td>Auto Bid Price</td><td><input type=text name=auto_bid_price></td>");
 			out.print("<td>Max Auto Bid Price</td><td><input type=text name=max_auto_bid></td>");
 			out.print("</table>");
-			out.print("<button type=submit name=bid value=" + rs.getString("item_id") + ">Bid</button>");
+			out.print("<button type=submit name=item_id value=" + rs.getString("item_id") + ">Bid</button>");
 			out.print("</form>");
 			out.print("<br>");
 		}
