@@ -23,7 +23,7 @@ public String insertBid(ApplicationDB db, Connection con, HttpSession session, H
 		double maxAutoBid = Double.parseDouble(request.getParameter("max_auto_bid"));
 		
 		// Update bid of the user has already created one for this item
-		String bidCheckQuery = "SELECT * FROM bid_history"
+		String bidCheckQuery = "SELECT * FROM bid_history "
 			+ "WHERE username = ? AND item_id = ?";
 		PreparedStatement preparedBidCheckQuery = con.prepareStatement(bidCheckQuery);
 		preparedBidCheckQuery.setString(1, username);
@@ -32,19 +32,24 @@ public String insertBid(ApplicationDB db, Connection con, HttpSession session, H
 		ResultSet bidCheckQueryResult = preparedBidCheckQuery.executeQuery();
 		
 		if(bidCheckQueryResult.next()) {
-			/*String bidUpdate = "UPDATE bid_history"
-				+ "SET bid_price = ?, auto_bid_price = ?, max_auto_bid = ?"
-				+ "WHERE username = ? AND item_id = ?";*/
-			String bidUpdate = "UPDATE bid_history SET bid_price = " + bidPrice + ", auto_bid_price = " + autoBidPrice + ", max_auto_bid = " + maxAutoBid + " WHERE username = " + username + " AND item_id = " + itemId;
+			String bidUpdate = "UPDATE bid_history "
+				+ "SET bid_price = ?, auto_bid_price = ?, max_auto_bid = ? "
+				+ "WHERE username = ? AND item_id = ?";
 
 			PreparedStatement preparedBidUpdate = con.prepareStatement(bidUpdate);
-			/*preparedBidUpdate.setDouble(1, bidPrice);
+			preparedBidUpdate.setDouble(1, bidPrice);
 			preparedBidUpdate.setDouble(2, autoBidPrice);
 			preparedBidUpdate.setDouble(3, maxAutoBid);
 			preparedBidUpdate.setString(4, username);
-			preparedBidUpdate.setInt(5, itemId);*/
+			preparedBidUpdate.setInt(5, itemId);
 			
-			response = "Updated prior bid on this item";
+			int result = preparedBidUpdate.executeUpdate();
+			
+			if(result == 1) {				
+				response = "Updated prior bid on this item";
+			} else {
+				response = "Something may have gone wrong with the bid update";
+			}
 		} else {
 		
 			// Figure out what the new bid's id should be
