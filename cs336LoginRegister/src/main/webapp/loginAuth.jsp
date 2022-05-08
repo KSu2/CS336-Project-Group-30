@@ -42,15 +42,8 @@
 	        out.println("</font>");
 	        out.println("<br><br>");
 	        out.println("<a href=LogoutPage.jsp>Logout</a>");
-	        query = "SELECT * FROM admin WHERE username = ?";
-	        ps1 = con.prepareStatement(query);
-	        ps1.setString(1, username);
-	        rs = ps1.executeQuery();
-	        boolean isAdmin = false;
-	        if(rs.next() != false){
-	        	isAdmin = true;
-	        }
-        	session.setAttribute("isAdmin", isAdmin);
+			String isAdmin = rs.getString("isAdmin");
+        	session.setAttribute("isAdmin", isAdmin); // 1 for yes 0 for no 
 	        session.setAttribute("user", username);
 	        response.sendRedirect("index.jsp");
 		}

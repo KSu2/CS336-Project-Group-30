@@ -15,6 +15,8 @@ try {
 	ApplicationDB db = new ApplicationDB();
 	Connection con = db.getConnection();
 	
+	//Create a SQL statement
+	Statement stmt = con.createStatement();
 	
 	// FIgure out what the new item's id should be
 	String getItemCountQuery = "SELECT MAX(item_id) max_id FROM items";
@@ -57,6 +59,8 @@ try {
 	} else {
 		out.print("Potentially failed to add item to auction list");
 	}
+    stmt.close();
+    con.close();
 	
 	
 	// Close connections

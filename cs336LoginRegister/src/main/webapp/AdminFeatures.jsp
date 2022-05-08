@@ -2,7 +2,7 @@
 <%@ include file="index.jsp" %>     
 <html>    
 <head>    
-    <title>Admin Features</title>       
+    <title>AdminFeatures</title>       
 </head>    
 <body>    
 	<h2>Create a customer representative account</h2>
@@ -17,7 +17,7 @@
         </label>    
         <input type="Password" name="pass" id="Pass" placeholder="Password">    
         <br><br>    
-        <input type="submit" value="Submit" id = "log">      
+        <button type="submit" value="customer_rep" id = "log" name = userType>Submit</button>    
     </form>     
 	
 	<h2>Generate Earnings Report</h2>
