@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import = "cs336LoginRegister.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html>
 <html>
@@ -25,11 +25,15 @@ try {
 	
 	//before query check if all auction close_date's are set for a later time otherwise delete them
 	//query all parts of the designated type that are < max_price and then return a new buyPage with links to these available items
-			
-	String query = "SELECT * FROM items WHERE  category = ? and initial_price < ?";
+	LocalDate ld = LocalDate.now();
+	LocalDateTime startOfDay = ld.atStartOfDay();
+	LocalDateTime startOfNextDay = ld.plusDays( 1 ).atStartOfDay();
+	
+	String query = "SELECT * FROM items WHERE  category = ? and initial_price < ? and auction_close > ?";
 	PreparedStatement ps1 = con.prepareStatement(query);
 	ps1.setString(1,item_type);
 	ps1.setString(2,max_price);
+	ps1.setObject(3,startOfDay);
 	ResultSet rs = ps1.executeQuery();
 	
 	if (rs.next() == false) {
@@ -48,7 +52,6 @@ try {
 			out.print("<button type=submit name=bid value=" + rs.getString("item_id") + ">Bid</button>");
 			out.print("</form>");
 			out.print("<br>");
-
 		}
 		while (rs.next());
 		}

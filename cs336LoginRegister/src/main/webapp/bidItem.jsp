@@ -19,7 +19,7 @@ try {
 	//Create a SQL statement
 	Statement stmt = con.createStatement();
 	
-	//Get parameters from the HTML form at the LoginPage.jsp
+	//Get parameters from the HTML form at the buyItem.jsp
 	String bid_price = request.getParameter("bid_price");
 	String auto_bid_price = request.getParameter("auto_bid_price");
 	String max_auto_bid = request.getParameter("max_auto_bid");
