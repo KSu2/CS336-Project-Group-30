@@ -54,8 +54,15 @@ try {
 	
 	if(updateResult == 1) {	
 		out.print("Successfully added '" + itemName + "' auction item list with id '" + itemId + "'");
+	} else {
+		out.print("Potentially failed to add item to auction list");
 	}
 	
+	
+	// Close connections
+	preparedQuery.close();
+	preparedUpdate.close();
+	con.close();
 	
 } catch(Exception ex) {
 	out.println(ex + ".");
