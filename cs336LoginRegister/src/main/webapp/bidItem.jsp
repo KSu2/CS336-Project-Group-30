@@ -129,19 +129,32 @@ try {
 		out.println(insertBid(db, con, session, request));
 	} else {
 		// Only add bid if it's price greater than the current max bid
-		if(bidPrice > Double.parseDouble(rs.getString("MAX(bid_price)"))) {
+		double maxBidPrice = Double.parseDouble(rs.getString("MAX(bid_price)"));
+		if(bidPrice > maxBidPrice) {
 			out.println(insertBid(db, con, session, request));
+			
+			// After bid has been placed autoincrement bids
+			/*String getBidHistoryQuery = "SELECT * FROM bid_history";
+			PreparedStatement preparedGetBidHistoryQuery = con.prepareStatement(getBidHistoryQuery);
+			ResultSet getBidHistoryResult = preparedGetBidHistoryQuery.executeQuery();
+			
+			HashMap<Integer, Double> itemMinValues = new HashMap<Integer, Double>();
+			int currItemId;
+			double currMinValue;
+			do {
+				currItemId = getBidHistoryResult.getInt("item_id");
+				currMinValue = maxBidPrice - ;
+				itemMinValues.put(currItemId, currMinValue);
+			} while(getBidHistoryResult.next());*/
 		} else {
 			out.println("Bid was too low. Could not add it.");
 		}
 	}
 	
+	// Close connections
 	ps.close();
 	stmt.close();
 	con.close();
-			
-	
-	//after bid has been placed autoincrement bids
 }
 catch (Exception ex) {
 	out.print(ex + " ");
